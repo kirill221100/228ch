@@ -40,7 +40,7 @@
 			<div class="header__newpost newpost">
 				<div class="newpost__wrapper">
 					<div class="qr qr_reply" id="qr" style="top: 0px; left: 214px; display: none;">
-						<div class="qr__header" id="qr-header">Ответить в тред <span class="qr__close" id="qr-close">X</span></div>
+						<div class="qr__header" id="qr-header">Ответить в тред <button id="btn2">X</button></div>
 						<div class="qr__body">
 							<form class="postform postform_qr" id="qr-postform" action="" method="post" enctype="multipart/form-data">
 
@@ -363,5 +363,19 @@ function myFunction() {
 	  }
 	});
 </script>
+<script>
+	const btn2 = document.getElementById('btn2');
 
+	btn2.addEventListener('click', () => {
+	  const form = document.getElementById('qr');
+
+	  if (form.style.display === 'none') {
+		// 👇️ this SHOWS the form
+		form.style.display = 'block';
+	  } else {
+		// 👇️ this HIDES the form
+		form.style.display = 'none';
+	  }
+	});
+</script>
 </body></html>

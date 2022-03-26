@@ -33,7 +33,7 @@ def board():
                 images.append(i.filename)
         db.session.add(Thread(id=db.session.query(User).order_by(User.id.desc()).first().id, text=form.text.data, images=str(images), creator=session.get('id')))
         db.session.commit()
-        return redirect(url_for('board'))
+        return redirect(url_for('thread', id=usr.id))
     res = db.session.query(Thread, func.count(User.id)).outerjoin(User).group_by(Thread.id).order_by(Thread.id.desc()).paginate(page, 10, False)
     next_url = url_for('board', page=res.next_num) if res.has_next else None
     prev_url = url_for('board', page=res.prev_num) if res.has_prev else None
