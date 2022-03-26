@@ -115,7 +115,7 @@
 						</div>
 						<div class="qr__footer">
 							  <hr>
-							  <a href="//t.me/dvachannel">dvachannel</a> - оФФициальный канал</div>
+
 						</div>
 					<button id="btn">Ответить в тред</button>
 				</div>
@@ -254,7 +254,7 @@
 											</article>
 											{% for j in thread.answers %}
 												{% if '>>'+i.id|string in ' '.join(j.text.split('\r\n')).split(' ') %}
-													<a href="{{url_for('thread', id=id)+'#'+j.id|string}}" class="post-reply-link" data-num={{j.id|string}}>>>{{.id}}</a>
+													<a href="{{url_for('thread', id=id)+'#'+j.id|string}}" class="post-reply-link" data-num={{j.id|string}}>>>{{j.id}}</a>
 												{%endif%}
 											{%endfor%}
 
