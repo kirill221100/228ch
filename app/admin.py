@@ -1,4 +1,4 @@
-from flask_admin import Admin, BaseView, AdminIndexView, expose
+from flask_admin import AdminIndexView, expose
 from app import basic_auth
 
 

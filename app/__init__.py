@@ -1,4 +1,4 @@
-from flask import Flask, session
+from flask import Flask
 from flask_basicauth import BasicAuth
 from app.config import Config
 from app.models import db, User, Thread
@@ -12,7 +12,6 @@ from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config.from_object(Config)
-print(Config.SECRET_KEY)
 
 db.init_app(app)
 

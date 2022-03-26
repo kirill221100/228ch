@@ -1,5 +1,4 @@
-import datetime, random
-from flask import flash, session, redirect, request, url_for, render_template
+from flask import session, redirect, request, url_for, render_template
 from sqlalchemy import func
 from app.config import Config as cfg
 from app.forms import ThreadForm
@@ -42,7 +41,6 @@ def board():
 
 @app.route('/thread/<int:id>', methods=["POST", "GET"])
 def thread(id):
-    page = request.args.get('page', 1, type=int)
     form = ThreadForm()
     images = []
     if form.validate_on_submit():
@@ -67,15 +65,7 @@ def thread(id):
         return redirect(url_for('thread', id=id))
     return render_template('thread.html', form=form, thread=db.session.query(Thread).filter(Thread.id==id).first(), id=id)
 
-@app.route('/delete')
-def delete():
-    if session.get('id'):
-        session.pop('id')
-    # db.session.query(Thread).delete()
-    # db.session.query(User).delete()
-    db.drop_all()
-    db.session.commit()
-    return 'deleted'
+
 
 @app.route('/image/<string:img>')
 def image(img):

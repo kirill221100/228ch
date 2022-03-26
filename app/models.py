@@ -1,11 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-#from flask_login import UserMixin
-#from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
-
-#threads_users = db.Table('threads_users',db.Column("thread_id", db.Integer, db.ForeignKey("thread.id")),db.Column("user_id", db.Integer, db.ForeignKey("user.id")))
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
