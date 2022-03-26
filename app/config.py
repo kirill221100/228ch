@@ -3,7 +3,7 @@ from os.path import join, dirname, realpath
 
 current_path = os.path.dirname(os.path.realpath(__file__))
 
-db_path = 'postgresql://postgres:abudabi@127.0.0.1:5432/postgres'
+db_path = os.environ.get('URI')
 
 class Config:
     DEBUG = True
