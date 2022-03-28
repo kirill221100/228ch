@@ -86,5 +86,5 @@ def thread(id):
         thread.answers.append(usr)
         db.session.commit()
         return redirect(url_for('thread', id=id))
-    return render_template('thread.html', form=form, thread=db.session.query(Thread).filter(Thread.id==id).first(), id=id, images=flickr_user.getPhotos())
+    return render_template('thread.html', form=form, thread=db.session.query(Thread).filter(Thread.id==id).first(), id=id)
 
