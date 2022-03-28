@@ -4,6 +4,18 @@ from app.config import Config as cfg
 from app.forms import ThreadForm
 from app.models import Thread, User
 from app import app, db
+import flickr_api, os
+flickr_api.set_keys(api_key=cfg.API_KEY, api_secret=cfg.API_SECRET)
+if not os.path.exists('flickr.txt'):
+    flickr = flickr_api.auth.AuthHandler()
+    url = flickr.get_authorization_url('write')
+    print(url)
+    flickr.set_verifier(input('qauth: '))
+    flickr.save('flickr.txt')
+
+flickr_api.set_auth_handler('flickr.txt')
+flickr_user = flickr_api.test.login()
+
 
 @app.route('/', methods=['POST', 'GET'])
 def board():
@@ -29,10 +41,15 @@ def board():
         if form.images.data[0]:
             for i in form.images.data:
                 i.save(f'{cfg.UPLOAD_FOLDER}{i.filename}_{usr.id}')
-                images.append(i.filename)
+                flickr_api.upload(photo_file=f'{cfg.UPLOAD_FOLDER}{i.filename}_{usr.id}', title=f'{i.filename}_{usr.id}')
+
+                for j in flickr_api.Walker(flickr_api.Photo.search, title=f'{i.filename}_{usr.id}', user_id=flickr_user.id):
+                    if j.title == f'{i.filename}_{usr.id}':
+                        images.append(f'https://live.staticflickr.com/{j.server}/{j.id}_{j.secret}_z.jpg')
         db.session.add(Thread(id=db.session.query(User).order_by(User.id.desc()).first().id, text=form.text.data, images=str(images), creator=session.get('id')))
         db.session.commit()
         return redirect(url_for('thread', id=usr.id))
+
     res = db.session.query(Thread, func.count(User.id)).outerjoin(User).group_by(Thread.id).order_by(Thread.id.desc()).paginate(page, 10, False)
     next_url = url_for('board', page=res.next_num) if res.has_next else None
     prev_url = url_for('board', page=res.prev_num) if res.has_prev else None
@@ -57,16 +74,17 @@ def thread(id):
         if form.images.data[0]:
             for i in form.images.data:
                 i.save(f'{cfg.UPLOAD_FOLDER}{i.filename}_{usr.id}')
-                images.append(i.filename)
+                flickr_api.upload(photo_file=f'{cfg.UPLOAD_FOLDER}{i.filename}_{usr.id}',
+                                  title=f'{i.filename}_{usr.id}')
+
+                for j in flickr_api.Walker(flickr_api.Photo.search, title=f'{i.filename}_{usr.id}',
+                                           user_id=flickr_user.id):
+                    if j.title == f'{i.filename}_{usr.id}':
+                        images.append(f'https://live.staticflickr.com/{j.server}/{j.id}_{j.secret}_z.jpg')
         usr.images = str(images)
         thread = db.session.query(Thread).filter(Thread.id == id).first()
         thread.answers.append(usr)
         db.session.commit()
         return redirect(url_for('thread', id=id))
-    return render_template('thread.html', form=form, thread=db.session.query(Thread).filter(Thread.id==id).first(), id=id)
+    return render_template('thread.html', form=form, thread=db.session.query(Thread).filter(Thread.id==id).first(), id=id, images=flickr_user.getPhotos())
 
-
-
-@app.route('/image/<string:img>')
-def image(img):
-    return render_template('image.html', img=img)
