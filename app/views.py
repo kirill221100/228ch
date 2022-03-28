@@ -41,7 +41,7 @@ def board():
         if form.images.data[0]:
             for i in form.images.data:
                 i.save(f'{i.filename}_{usr.id}')
-                flickr_api.upload(photo_file=f'{cfg.UPLOAD_FOLDER}{i.filename}_{usr.id}', title=f'{i.filename}_{usr.id}')
+                flickr_api.upload(photo_file=f'{i.filename}_{usr.id}', title=f'{i.filename}_{usr.id}')
 
                 for j in flickr_api.Walker(flickr_api.Photo.search, title=f'{i.filename}_{usr.id}', user_id=flickr_user.id):
                     if j.title == f'{i.filename}_{usr.id}':
