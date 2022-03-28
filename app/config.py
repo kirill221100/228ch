@@ -7,7 +7,7 @@ db_path = os.environ.get('URI')
 class Config:
     DEBUG = True
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    UPLOAD_FOLDER = join(dirname(realpath(__file__)), 'static/images/')
+    UPLOAD_FOLDER = 'static/images/'
     BASIC_AUTH_PASSWORD = os.environ.get('BASIC_AUTH_PASSWORD')
     BASIC_AUTH_USERNAME = os.environ.get('BASIC_AUTH_USERNAME')
     API_KEY = os.environ.get('API_KEY')
