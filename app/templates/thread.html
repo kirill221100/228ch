@@ -156,7 +156,7 @@
                                             <br class="turnmeoff">
                                         </div>
 
-                                            {% if thread.images %}
+                                            {% if thread.images != '[]' %}
 
 												<div class="post__images  post__images_type_multi">
 														{% for j in thread.images[1:-1].split(', ') %}
@@ -213,15 +213,18 @@
 
 												<br class="turnmeoff">
 											</div>
-												{% if i.images %}
+												{% if i.images != '[]' %}
 													<div class="post__images  post__images_type_multi">
 														<figure class="post__image">
 															{% for j in i.images[1:-1].split(', ') %}
+
 																	<a href="{{ j[1:-1] }}">
 																		<img src="{{ j[1:-1]}}" width="35%" class="post__file-preview" data-title="image.png">
 																	</a>
+
 															{% endfor %}
 														</figure>
+
 												{% endif %}
 											<article id={{"m"+i.id|string}} class="post__message ">
 

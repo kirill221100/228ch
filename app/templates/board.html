@@ -163,14 +163,18 @@
 													<div class="post__images  post__images_type_multi">
 														<figure class="post__image">
 															{% for j in i[0].images[1:-1].split(', ') %}
+
 																	<a href="{{ j[1:-1] }}">
 																		<img src="{{ j[1:-1] }}" width="35%">
 																	</a>
+
 															{% endfor %}
 														</figure>
-												{% endif %}
 
-												</div>
+
+
+													</div>
+												{% endif %}
 
 
 
@@ -193,7 +197,7 @@
 
 										</div>
 									</div>
-
+					{% endfor %}
 
 
 
@@ -207,7 +211,6 @@
 
 
 					</div>
-					{% endfor %}
 
 
 
