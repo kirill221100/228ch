@@ -25,7 +25,7 @@ class Threads_cls(Resource):
 
             threads_act = sorted(list(threads.items), key=lambda x: x[1])[::-1]
             return {'Threads': [{'id': x[0].id, 'text': x[0].text, 'date': str(x[0].date), 'images': x[0].images, 'answers': [{'id': i.id, 'text': i.text, 'date': str(i.date), 'images': i.images} for i in x[0].answers]} for x in threads_act]}
-
+        return {'message': 'Ошибочка'}, 404
 
 api.add_resource(Thread_cls, '/api/thread/<int:thread_id>/')
 api.add_resource(Threads_cls, '/api/threads/<string:name>/<int:page>/')

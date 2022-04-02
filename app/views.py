@@ -88,3 +88,14 @@ def thread(id):
         return redirect(url_for('thread', id=id))
     return render_template('thread.html', form=form, thread=db.session.query(Thread).filter(Thread.id==id).first(), id=id)
 
+@app.route('/api_doc')
+def api_doc():
+    return '''Короче мне лень было оформлять дизайн для этой страницы.
+    
+    Вообщем:
+    
+    https://twotwoeightch.herokuapp.com/api/thread/id треда/ - тут получаете инфу о тексте треда, дате, картинках и ответах.
+    
+    https://twotwoeightch.herokuapp.com/api/threads/сортировка/страница/ - тут тоже самое только инфа о 10 тредах. В сортировке можете указать new (от самого нового) и act (от самого активного).
+    
+    Эт все. Есть только get запрос'''
