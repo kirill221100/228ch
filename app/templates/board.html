@@ -15,16 +15,14 @@
     <div class="cntnt">
 		<header class="cntnt__header header">
 			<div class="adminbar header__adminbar">
-				<div class="adminbar__menu desktop" style="margin-bottom: 28px;">
+				<div style="margin-bottom: 28px;">
 
 
 		<a href="/" class="adminbar__menuitem">Главная</a>
 
 		<!-- <a href="/contacts.html" class="adminbar__menuitem" >Контакты</a> -->
 
-		<div class="adminbar__exp">
 
-		</div>
 </div>
 
 
@@ -32,14 +30,14 @@
 
 			</div>
 			<div class="header__logo logo">
-				<a class="desktop" title="/tes/" href="/tes/"><img height="100" src="{{url_for('static', filename='платно.gif')}}" alt="tes"></a>
+				<a><img height="100" src="{{url_for('static', filename='платно.gif')}}"></a>
 			</div>
 			<h1 class="header__boardname boardname">
 				<a href="/b/" id="title">228ch</a>
 			</h1>
 			<div class="header__newpost newpost">
 				<div class="newpost__wrapper">
-					<div class="qr qr_reply" id="qr" style="top: 0px; left: 214px; display: none;">
+					<div class="qr qr_reply" id="qr" style="display: none;">
 						<div class="qr__header" id="qr-header">Создать тред <button id="btn2">X</button></div>
 						<div class="qr__body">
 							<form class="postform postform_qr" id="qr-postform" action="" method="post" enctype="multipart/form-data">
@@ -155,7 +153,7 @@
 												{% endif %}
 
 
-													<span class="post__detailpart desktop"><a href="{{ url_for('thread', id=i[0].id) }}">Ответ</a></span>
+													<span><a href="{{ url_for('thread', id=i[0].id) }}">Ответ</a></span>
 
 												<br class="turnmeoff">
 											</div>
@@ -176,11 +174,6 @@
 													</div>
 												{% endif %}
 
-
-
-
-											</div>
-
 												<div>
 													{% if i[0].text|length > 150 %}
 														{{ i[0].text[:150]+'...' }}
@@ -189,6 +182,11 @@
 														{{ i[0].text }}
 													{% endif %}
 												</div>
+
+
+											</div>
+
+
 
 										</article>
 
@@ -214,7 +212,7 @@
 
 
 
-			</div>
+
 			{% if prev_url %}
 			<a href="{{ prev_url }}">Назад</a>
 			{% endif %}
@@ -313,6 +311,7 @@
 				</section>
 			</footer>
 		</main>
+		</div>
     </div>
 
 

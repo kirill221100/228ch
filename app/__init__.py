@@ -28,5 +28,6 @@ admin.add_view(ModelView(Thread, db.session))
 def create_tables():
     db.create_all()
 
+from app.restful import *
 
 from app.views import *
